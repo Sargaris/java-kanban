@@ -3,8 +3,7 @@ import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class TaskManagerServices {
@@ -44,5 +43,22 @@ public class TaskManagerServices {
         subTasks.put(subTaskId,subTask);
 
         epic.addTask(subTaskId);
+        updateEpicStatus(epic);
+    }
+
+    public List<Task> getTasks(){
+        Collection<Task> values = tasks.values();
+        return new ArrayList<>(values);
+    }
+
+
+
+    public List<Epic> getEpics(){
+        Collection<Epic> values = epics.values();
+        return new ArrayList<>(values);
+    }
+
+    private void updateEpicStatus(Epic epic) {
+    
     }
 }

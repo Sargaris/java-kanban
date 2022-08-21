@@ -1,13 +1,16 @@
 package tasks;
 
+import services.PrintInConsoleService;
 import services.TaskManagerServices;
+
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
         TaskManagerServices taskManagerServices = new TaskManagerServices();
-
+        PrintInConsoleService printInConsoleService = new PrintInConsoleService();
 
         Task task = new Task("таска1","новая таска", TaskStatus.NEW);
         Task task2 = new Task("таска2","новая таска 2", TaskStatus.NEW);
@@ -27,6 +30,13 @@ public class Main {
 
         taskManagerServices.addSubTask(subTask);
         taskManagerServices.addSubTask(subTask2);
+
+
+        List<Task> tasks = taskManagerServices.getTasks();
+        printInConsoleService.printTasks(tasks);
+
+        List<Epic> epics = taskManagerServices.getEpics();
+        printInConsoleService.printEpics(epics);
 
 
 
