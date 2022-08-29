@@ -146,17 +146,11 @@ public class TaskManagerServices {
         List<SubTask> sub = getListSubTasksFromEpic(epic);
         int statusNew = 0;
         int statusDone = 0;
-        int statusInProgress = 0;
 
-        for( int i = 0;i < sub.size(); i++){
-            SubTask task = sub.get(i);
-
-            switch (task.getStatus()){
+        for (SubTask task : sub) {
+            switch (task.getStatus()) {
                 case NEW:
                     statusNew++;
-                    break;
-                case IN_PROGRESS:
-                    statusInProgress++;
                     break;
                 case DONE:
                     statusDone++;
@@ -164,14 +158,11 @@ public class TaskManagerServices {
             }
         }
 
-            if(statusDone == 0 | statusInProgress == 0){
-                epic.setStatus(TaskStatus.NEW);
-            } else if( statusInProgress == 0 | statusNew == 0 ){
-                epic.setStatus(TaskStatus.DONE);
-            } else{
-                epic.setStatus(TaskStatus.IN_PROGRESS);
-            }
-
+        if(statusNew == sub.size()) {
+            epic.setStatus(TaskStatus.NEW);
+        } else if (statusDone == sub.size()) {
+            epic.setStatus(TaskStatus.DONE);
+        } else epic.setStatus(TaskStatus.IN_PROGRESS);
     }
 }
 
