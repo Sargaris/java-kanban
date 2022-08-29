@@ -11,10 +11,14 @@ public class Epic extends Task{
         super(taskName,taskDescription,status);
     }
 
+
     public void addTask(int idSubTask){
         idSubTasks.add(idSubTask);
     }
+
     public List<Integer> getIdSubTasks() {return idSubTasks;}
+
+
 
     @Override
     public String toString() {

@@ -26,7 +26,7 @@ public class Main {
         taskManagerServices.addEpic(epic2);
 
         SubTask subTask = new SubTask("SubTAsk 1", "Новая Сабтаска", TaskStatus.NEW, epic.getId());
-        SubTask subTask2 = new SubTask("SubTAsk 2", "Новая Сабтаска 2", TaskStatus.NEW, epic2.getId());
+        SubTask subTask2 = new SubTask("SubTAsk 2", "Новая Сабтаска 2", TaskStatus.DONE, epic.getId());
 
         taskManagerServices.addSubTask(subTask);
         taskManagerServices.addSubTask(subTask2);
@@ -38,8 +38,11 @@ public class Main {
         List<Epic> epics = taskManagerServices.getEpics();
         printInConsoleService.printEpics(epics);
 
-       // List<SubTask> subTasks = taskManagerServices.getSubTasks();
-       // printInConsoleService.printSubTasks(subTasks);
+        List<SubTask> subTasks = taskManagerServices.getSubTasks();
+        printInConsoleService.printSubTasks(subTasks);
+
+
+
 
 
     }
