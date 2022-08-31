@@ -1,9 +1,6 @@
 package services;
 
-import tasks.Epic;
-import tasks.SubTask;
-import tasks.Task;
-import tasks.TaskStatus;
+import tasks.*;
 
 import java.util.*;
 
@@ -50,20 +47,17 @@ public class TaskManagerServices {
 
     public List<Task> getTasks() {
 
-        Collection<Task> values = tasks.values();
-        return new ArrayList<>(values);
+        return new ArrayList<>(tasks.values());
     }
 
     public List<Epic> getEpics() {
 
-        Collection<Epic> values = epics.values();
-        return new ArrayList<>(values);
+        return new ArrayList<>(epics.values());
     }
 
     public List<SubTask> getSubTasks() {
 
-        Collection<SubTask> value = subTasks.values();
-        return new ArrayList<>(value);
+        return new ArrayList<>(subTasks.values());
     }
 
     public void removeTasks() {
@@ -74,11 +68,15 @@ public class TaskManagerServices {
     public void removeEpics() {
 
         epics.clear();
+        subTasks.clear();
     }
 
     public void removeSubTasks() {
 
         subTasks.clear();
+        updateEpicStatus(epics.values());
+
+
     }
 
     public Task getTaskById(int taskId) {
@@ -108,6 +106,7 @@ public class TaskManagerServices {
         int id = epic.getId();
         tasks.remove(id);
         tasks.put(id, epic);
+        updateEpicStatus(epic);
     }
 
     public void updateSubTask(SubTask subTask) {
@@ -115,6 +114,8 @@ public class TaskManagerServices {
         int id = subTask.getId();
         tasks.remove(id);
         tasks.put(id, subTask);
+        int epicId = subTask.getEpicId();
+        updateEpicStatus(epics.get(epicId));
     }
 
     public void removeTaskById(int taskId) {
@@ -125,6 +126,7 @@ public class TaskManagerServices {
     public void removeEpicById(int epicId) {
 
         epics.remove(epicId);
+
     }
 
     public void removeSubTaskById(int subTaskId) {
