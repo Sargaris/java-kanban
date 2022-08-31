@@ -66,7 +66,6 @@ public class TaskManagerServices {
     }
 
     public void removeEpics() {
-
         epics.clear();
         subTasks.clear();
     }
@@ -74,9 +73,10 @@ public class TaskManagerServices {
     public void removeSubTasks() {
 
         subTasks.clear();
-
-        //обновить статусы эпиков
-
+        for(Epic epic : epics.values()) {
+            epic.getIdSubTasks().clear();
+            updateEpicStatus(epic);
+        }
     }
 
     public Task getTaskById(int taskId) {
@@ -126,15 +126,20 @@ public class TaskManagerServices {
 
     public void removeEpicById(int epicId) {
 
-        epics.remove(epicId);
-        //удалить сабТаски удаленного эпика
+        Epic epic = epics.remove(epicId);
+        for(Integer subtaskId : epic.getIdSubTasks()) {
+            subTasks.remove(subtaskId);
+        }
+
 
     }
 
     public void removeSubTaskById(int subTaskId) {
+        SubTask subTask = subTasks.remove(subTaskId);
+        Epic epic = epics.get(subTask.getEpicId());
+        epic.getIdSubTasks().remove((Integer) subTaskId);
+        updateEpicStatus(epic);
 
-        subTasks.remove(subTaskId);
-        // нужно пересчитать статус эпика
     }
 
 
@@ -149,6 +154,11 @@ public class TaskManagerServices {
 
     private void updateEpicStatus(Epic epic) {
         List<SubTask> sub = getListSubTasksFromEpic(epic);
+        if(sub.size() == 0) {
+            epic.setStatus(TaskStatus.NEW);
+            return;
+        }
+
         int statusNew = 0;
         int statusDone = 0;
 
@@ -170,4 +180,3 @@ public class TaskManagerServices {
         } else epic.setStatus(TaskStatus.IN_PROGRESS);
     }
 }
-

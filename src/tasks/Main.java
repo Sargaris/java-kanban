@@ -31,7 +31,7 @@ public class Main {
         taskManagerServices.addSubTask(subTask);
         taskManagerServices.addSubTask(subTask2);
 
-        taskManagerServices.removeSubTasks();
+        
 
 
         List<Task> tasks = taskManagerServices.getTasks();
