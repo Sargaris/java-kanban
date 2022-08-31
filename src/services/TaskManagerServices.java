@@ -74,8 +74,8 @@ public class TaskManagerServices {
     public void removeSubTasks() {
 
         subTasks.clear();
-        updateEpicStatus(epics.values());
 
+        //обновить статусы эпиков
 
     }
 
@@ -121,17 +121,20 @@ public class TaskManagerServices {
     public void removeTaskById(int taskId) {
 
         tasks.remove(taskId);
+
     }
 
     public void removeEpicById(int epicId) {
 
         epics.remove(epicId);
+        //удалить сабТаски удаленного эпика
 
     }
 
     public void removeSubTaskById(int subTaskId) {
 
         subTasks.remove(subTaskId);
+        // нужно пересчитать статус эпика
     }
 
 
