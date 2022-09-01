@@ -13,9 +13,14 @@ public class TaskManagerServices {
 
     private int idGenerator = 0;
 
+    private int generateNextId(){
+
+        return ++idGenerator;
+    }
+
     public void addTask(Task task) {
 
-        int taskId = ++idGenerator;
+        int taskId = generateNextId();
         task.setId(taskId);
         tasks.put(taskId, task);
     }
@@ -23,7 +28,7 @@ public class TaskManagerServices {
 
     public void addEpic(Epic epic) {
 
-        int epicId = ++idGenerator;
+        int epicId = generateNextId();
         epic.setId(epicId);
         epics.put(epicId, epic);
     }
@@ -37,7 +42,7 @@ public class TaskManagerServices {
             return;
         }
 
-        int subTaskId = ++idGenerator;
+        int subTaskId = generateNextId();
         subTask.setId(subTaskId);
         subTasks.put(subTaskId, subTask);
 
