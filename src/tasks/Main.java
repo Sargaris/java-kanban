@@ -1,15 +1,18 @@
 package tasks;
 
+import services.InMemoryTaskManager;
+import services.ManagersFabric;
 import services.PrintInConsoleService;
 import services.TaskManagerServices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        TaskManagerServices taskManagerServices = new TaskManagerServices();
+        TaskManagerServices taskManagerServices = new InMemoryTaskManager();
         PrintInConsoleService printInConsoleService = new PrintInConsoleService();
 
         Task task = new Task("таска1", "новая таска", TaskStatus.NEW);
@@ -31,9 +34,6 @@ public class Main {
         taskManagerServices.addSubTask(subTask);
         taskManagerServices.addSubTask(subTask2);
 
-
-
-
         List<Task> tasks = taskManagerServices.getTasks();
         printInConsoleService.printTasks(tasks);
 
@@ -42,6 +42,23 @@ public class Main {
 
         List<SubTask> subTasks = taskManagerServices.getSubTasks();
         printInConsoleService.printSubTasks(subTasks);
+
+        System.out.println();
+
+        taskManagerServices.getTaskById(1);
+        System.out.println();
+        taskManagerServices.getTaskById(2);
+
+        
+
+
+
+        System.out.println(ManagersFabric.getDefaultHistory().getHistory().size());
+
+
+
+
+
 
 
 
