@@ -1,13 +1,12 @@
 package services;
 
 
-public interface ManagersFabric {
+public interface Managers {
 
-    TaskManagerServices getDefault();
+    TaskManager getDefault();
 
 
     static HistoryManager getDefaultHistory() {
-
         return new InMemoryHistoryManager();
     }
 }

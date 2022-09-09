@@ -10,15 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryTaskManager implements TaskManagerServices {
+public class InMemoryTaskManager implements TaskManager {
 
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, SubTask> subTasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
 
+    private HistoryManager historyManager = Managers.getDefaultHistory();
 
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, SubTask> subTasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
-
-    HistoryManager historyManager = ManagersFabric.getDefaultHistory();
     private int idGenerator = 0;
 
     @Override
@@ -34,6 +33,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
         task.setId(taskId);
         tasks.put(taskId, task);
     }
+
     @Override
     public void addEpic(Epic epic) {
 
@@ -41,6 +41,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
         epic.setId(epicId);
         epics.put(epicId, epic);
     }
+
     @Override
     public void addSubTask(SubTask subTask) {
 
@@ -57,31 +58,37 @@ public class InMemoryTaskManager implements TaskManagerServices {
         epic.addTask(subTaskId);
         updateEpicStatus(epic);
     }
+
     @Override
     public List<Task> getTasks() {
 
         return new ArrayList<>(tasks.values());
     }
+
     @Override
     public List<Epic> getEpics() {
 
         return new ArrayList<>(epics.values());
     }
+
     @Override
     public List<SubTask> getSubTasks() {
 
         return new ArrayList<>(subTasks.values());
     }
+
     @Override
     public void removeTasks() {
 
         tasks.clear();
     }
+
     @Override
     public void removeEpics() {
         epics.clear();
         subTasks.clear();
     }
+
     @Override
     public void removeSubTasks() {
 
@@ -91,22 +98,26 @@ public class InMemoryTaskManager implements TaskManagerServices {
             updateEpicStatus(epic);
         }
     }
+
     @Override
     public Task getTaskById(int taskId) {
         historyManager.add(tasks.get(taskId));
         return tasks.get(taskId);
 
     }
+
     @Override
     public Epic getEpicById(int epicId) {
         historyManager.add(epics.get(epicId));
         return epics.get(epicId);
     }
+
     @Override
     public SubTask getSubTaskById(int subTaskId) {
         historyManager.add(subTasks.get(subTaskId));
         return subTasks.get(subTaskId);
     }
+
     @Override
     public void updateTask(Task task) {
 
@@ -114,6 +125,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
         tasks.remove(id);
         tasks.put(id, task);
     }
+
     @Override
     public void updateEpic(Epic epic) {
 
@@ -122,6 +134,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
         tasks.put(id, epic);
         updateEpicStatus(epic);
     }
+
     @Override
     public void updateSubTask(SubTask subTask) {
 
@@ -131,12 +144,14 @@ public class InMemoryTaskManager implements TaskManagerServices {
         int epicId = subTask.getEpicId();
         updateEpicStatus(epics.get(epicId));
     }
+
     @Override
     public void removeTaskById(int taskId) {
 
         tasks.remove(taskId);
 
     }
+
     @Override
     public void removeEpicById(int epicId) {
 
@@ -147,6 +162,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
 
 
     }
+
     @Override
     public void removeSubTaskById(int subTaskId) {
         SubTask subTask = subTasks.remove(subTaskId);
@@ -165,8 +181,8 @@ public class InMemoryTaskManager implements TaskManagerServices {
         }
         return subTaskList;
     }
-    @Override
-    public void updateEpicStatus(Epic epic) {
+
+    private void updateEpicStatus(Epic epic) {
         List<SubTask> sub = getListSubTasksFromEpic(epic);
         if (sub.size() == 0) {
             epic.setStatus(TaskStatus.NEW);
@@ -196,6 +212,7 @@ public class InMemoryTaskManager implements TaskManagerServices {
 
     @Override
     public List<Task> getHistory() {
+
         return historyManager.getHistory();
     }
 

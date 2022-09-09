@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    public ArrayList<Task> lastTenActions = new ArrayList<>();
+    final List<Task> lastTenActions = new ArrayList<>();
 
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public final List<Task> getHistory() {
 
         return lastTenActions;
     }
@@ -18,9 +18,13 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-        lastTenActions.add(task);
-        if (lastTenActions.size() > 10) {
-            lastTenActions.remove(0);
+        if (task != null) {
+            lastTenActions.add(task);
+
+            if (lastTenActions.size() > 10) {
+                lastTenActions.remove(0);
+
+            }
         }
     }
 }

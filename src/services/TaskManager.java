@@ -5,31 +5,20 @@ import tasks.*;
 import java.util.*;
 
 
-public interface TaskManagerServices{
+public interface TaskManager {
 
-    Map<Integer, Task> tasks = new HashMap<>();
-    Map<Integer, SubTask> subTasks = new HashMap<>();
-    Map<Integer, Epic> epics = new HashMap<>();
-
-    int idGenerator = 0;
 
     int generateNextId();
 
-
     void addTask(Task task);
-
 
     void addEpic(Epic epic);
 
-
     void addSubTask(SubTask subTask);
-
 
     List<Task> getTasks();
 
-
     List<Epic> getEpics();
-
 
     List<SubTask> getSubTasks();
 
@@ -58,9 +47,6 @@ public interface TaskManagerServices{
     void removeSubTaskById(int subTaskId);
 
     List<SubTask> getListSubTasksFromEpic(Epic epic);
-
-    void updateEpicStatus(Epic epic);
-
 
     List<Task> getHistory();
 

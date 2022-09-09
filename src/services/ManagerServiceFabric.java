@@ -1,9 +1,9 @@
 package services;
 
-public class ManagerServiceFabric implements ManagersFabric{
+public class ManagerServiceFabric implements Managers {
 
     @Override
-    public TaskManagerServices getDefault() {
+    public TaskManager getDefault() {
         return new InMemoryTaskManager();
     }
 }
