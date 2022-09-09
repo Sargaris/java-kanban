@@ -194,6 +194,10 @@ public class InMemoryTaskManager implements TaskManagerServices {
         } else epic.setStatus(TaskStatus.IN_PROGRESS);
     }
 
+    @Override
+    public List<Task> getHistory() {
+        return historyManager.getHistory();
+    }
 
 
 }

@@ -46,16 +46,14 @@ public class Main {
         System.out.println();
 
         taskManagerServices.getTaskById(1);
-        System.out.println();
         taskManagerServices.getTaskById(2);
 
-        
+        System.out.println(taskManagerServices.getHistory());
 
+        taskManagerServices.getTaskById(1);
+        taskManagerServices.getTaskById(2);
 
-
-        System.out.println(ManagersFabric.getDefaultHistory().getHistory().size());
-
-
+        System.out.println(taskManagerServices.getHistory());
 
 
 

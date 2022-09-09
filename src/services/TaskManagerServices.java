@@ -62,4 +62,7 @@ public interface TaskManagerServices{
     void updateEpicStatus(Epic epic);
 
 
+    List<Task> getHistory();
+
+
 }
