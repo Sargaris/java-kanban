@@ -8,7 +8,7 @@ import java.util.*;
 public interface TaskManager {
 
 
-    int generateNextId();
+
 
     void addTask(Task task);
 

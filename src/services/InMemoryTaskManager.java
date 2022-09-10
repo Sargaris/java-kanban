@@ -16,15 +16,10 @@ public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, SubTask> subTasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
 
-    private HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int idGenerator = 0;
 
-    @Override
-    public int generateNextId() {
-
-        return ++idGenerator;
-    }
 
     @Override
     public void addTask(Task task) {
@@ -182,6 +177,17 @@ public class InMemoryTaskManager implements TaskManager {
         return subTaskList;
     }
 
+    @Override
+    public List<Task> getHistory() {
+
+        return historyManager.getHistory();
+    }
+
+    private int generateNextId() {
+
+        return ++idGenerator;
+    }
+
     private void updateEpicStatus(Epic epic) {
         List<SubTask> sub = getListSubTasksFromEpic(epic);
         if (sub.size() == 0) {
@@ -209,12 +215,5 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(TaskStatus.DONE);
         } else epic.setStatus(TaskStatus.IN_PROGRESS);
     }
-
-    @Override
-    public List<Task> getHistory() {
-
-        return historyManager.getHistory();
-    }
-
 
 }

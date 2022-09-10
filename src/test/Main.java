@@ -56,9 +56,6 @@ public class Main {
         taskManager.getTaskById(2);
 
         System.out.println(taskManager.getHistory());
-
-
     }
-
 
 }
