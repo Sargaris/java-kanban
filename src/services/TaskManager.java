@@ -7,9 +7,6 @@ import java.util.*;
 
 public interface TaskManager {
 
-
-
-
     void addTask(Task task);
 
     void addEpic(Epic epic);
@@ -49,6 +46,5 @@ public interface TaskManager {
     List<SubTask> getListSubTasksFromEpic(Epic epic);
 
     List<Task> getHistory();
-
 
 }
